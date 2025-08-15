@@ -1,0 +1,10 @@
+from django.urls import path
+from .views import *
+
+urlpatterns = [
+    path('', QuizListAPIView.as_view(), name='quiz-list'),
+    path('<int:pk>/', QuizDetailAPIView.as_view(), name='quiz-detail'),
+    path('questions/', QuestionListAPIView.as_view(), name='question-list'),
+    path('<int:quiz_id>/questions/', QuizQuestionsListAPIView.as_view(), name='quiz-questions-list'),
+    path('<int:quiz_id>/questions/<int:pk>/', QuizQuestionDetailAPIView.as_view(), name='quiz-question-detail'),
+]

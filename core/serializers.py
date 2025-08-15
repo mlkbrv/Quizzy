@@ -25,7 +25,6 @@ class QuestionSerializer(serializers.ModelSerializer):
 class QuizSerializer(serializers.ModelSerializer):
     questions = QuestionSerializer(many=True, read_only=True)
     owner = serializers.StringRelatedField()
-
     class Meta:
         model = Quiz
         fields = [
