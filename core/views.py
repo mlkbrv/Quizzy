@@ -7,6 +7,7 @@ from .models import *
 from .serializers import *
 from rest_framework.pagination import PageNumberPagination
 from .permissions import *
+from .filters import QuestionsFilter
 
 class QuizListAPIView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
@@ -44,7 +45,7 @@ class QuestionListAPIView(generics.ListAPIView):
 class QuizQuestionDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = QuestionSerializer
     permission_classes = (IsAuthenticated,)
-    
+
     def get_queryset(self):
         return Question.objects.filter(quiz=self.kwargs['quiz_id'])
     
@@ -57,7 +58,8 @@ class QuizQuestionDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 class QuizQuestionsListAPIView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
-    
+    filterset_class = QuestionsFilter
+
     def get_queryset(self):
         return Question.objects.filter(quiz=self.kwargs['quiz_id']).order_by('pk')
     
